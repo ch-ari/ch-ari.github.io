@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab05_1.html</title>
+</head>
+<body>
+    <h1 id="grade"></h1>
+
+    <script>
+        let score = Number(prompt("점수를 입력하세요"));
+        let grade = "";
+        let output = "입력한 점수 " + score + "는 ";
+
+        if (score<60){
+            grade="F";
+        }else if (score<70){
+            grade="D";
+        }else if (score<80){
+            grade="C"; 
+        }else if (score<90){
+            grade="B"; 
+        }else if (score<=100){
+            grade="A";
+        }else {
+            grade="<적절하지 않은 입력값입니다>";
+        }
+        output = output + grade + "학점입니다.";
+
+        document.getElementById("grade").innerHTML=output
+    </script>    
+</body>
+</html>

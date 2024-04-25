@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            font-size: 5em;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        let time = Number(prompt("카운트다운할 숫자를 입력하세요:"))
+
+        function timer(callback){
+            if(time<=0){
+                document.getElementById("demo").innerHTML="타이머 종료"
+                clearInterval(x);
+            }else {
+                document.getElementById("demo").innerHTML=time;
+                time--;
+            }
+        }
+
+        const x = setInterval(timer, 1000, function(time){ time--; });
+            
+    </script>
+    
+</body>
+</html>

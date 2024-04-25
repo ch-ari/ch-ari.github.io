@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="name"></h1>
+    <h1 id="age"></h1>
+    <h1 id="height"></h1>
+    <h1 id="weight"></h1>
+    <h1 id="bmi"></h1>
+
+    <script>
+        let name=prompt("이름을 입력하시오");
+        let age=Number(prompt("나이를 입력하시오(숫자)"));
+        let height=Number(prompt("키를 입력하시오(숫자)"));
+        let weight=Number(prompt("체중을 입력하시오(숫자)"));
+
+        let bmi_height=height/100
+        let bmi=weight/(bmi_height*bmi_height)
+
+        let bmi_output=""
+
+        if(age>=20 && age<30){
+            if(bmi<18.0){
+                bmi_output="저체중"
+            }else if(bmi<24.0) {
+                bmi_output="표준체중"
+            }else if(bmi<31.0) {
+                bmi_output="과체중"
+            }else {
+                bmi_output="비만"
+            }
+        }else if(age>=30 && age<40){
+            if(bmi<18.5){
+                bmi_output="저체중"
+            }else if(bmi<25.0) {
+                bmi_output="표준체중"
+            }else if(bmi<31.0) {
+                bmi_output="과체중"
+            }else {
+                bmi_output="비만"
+            }
+        }else{
+            if(bmi<18.5){
+                bmi_output="저체중"
+            }else if(bmi<25.0) {
+                bmi_output="표준체중"
+            }else if(bmi<31.0) {
+                bmi_output="과체중"
+            }else {
+                bmi_output="비만"
+            }
+        }
+
+        document.getElementById("name").innerHTML="이름: " + name;
+        document.getElementById("age").innerHTML="나이: " + age;
+        document.getElementById("height").innerHTML="키: "+ height;
+        document.getElementById("weight").innerHTML="체중: " + weight;
+        document.getElementById("bmi").innerHTML="당신은 " + bmi_output + "(" + bmi + ")" + "입니다.";
+    </script>
+</body>
+</html>

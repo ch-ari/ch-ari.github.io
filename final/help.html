@@ -10,13 +10,80 @@
             grid-template-rows: 16% 79% 5%;
             grid-template-columns: 0% 100%;
         }
+        section {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 15% auto;
+            grid-template-columns: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section > div, section > ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        section > div{
+            display: grid;
+            grid-row: 1/2;
+            place-items: center;
+            font-size: larger;
+            font-weight: bold;
+        }
+        section > ul{
+            display: grid;
+            grid-row: 2/3;
+            width: 100%;
+            margin-top: 1%;
+            place-items: center;
+        }
+        section > ul > li{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            width: 80%;
+            border: 1px solid black;
+            margin-top: 10px;
+            font-size:large;
+        }
+        section > ul > li div{
+            display: none;
+            border:1px solid black;
+            width: 95%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            margin: 5%;
+            margin-top: 1.5%;
+            font-size:medium;
+
+        }
+        section > ul > div{
+            display: flex;
+            background-color: aqua;
+        }
+        section li a{
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
     <header><h1>도움말</h1></header>
     <section>
+        <div>클릭 시 펼쳐집니다.</div>
+        <div id="hr"></div>
         <ul>
-            <li>도움말 예시</li>
+            <li onclick="help_click(this)">프로필<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)">공부 장소<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)">계획서<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)">미루기<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)">타이머<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)">테마 변경<div class="help_content">테스트</div></li>
         </ul>
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>

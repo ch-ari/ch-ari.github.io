@@ -7,14 +7,39 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <style>
         p{
-            height: 100%;
-            width:100%
+            height: 50%;
+            width:100%;
+            color: rgb(156, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 60%;
+        }
+        form div{
+            height: 30%;
         }
         input[type=text]{
-            width: 50%;
-            height: 25%;
+            width: 45%;
+            height: 40%;
             font-size: 1.5em;
             text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type=submit]{
+            width: 25%;
+            height: 33%;
+            font-size: 1em;
+            text-align: center;
+            background-color: var(--sub-color);
+            color: var(--section-color);
+            border: 0;
         }
         label{
             font-size: 1.7em;
@@ -36,12 +61,17 @@
         </ul>   
     </nav>
     <section>
-        <div id="section_title">이름으로 로그인하기</div>         
-            <form>
-                <p><label for="name">이름</label><br><br><input type="text" id="name" placeholder="최애리" required></p>
-                <input type="submit" value="회원 로그인"> 
+        <div id="section_title">이름으로 로그인하기</div>
+        <div id="hr"></div>
+        <div id="section_artc">
+            <form id="login_form">
+                <div><label for="id_name">이름</label></div><input type="text" id="id_name" placeholder="최애리" required><br>
+                <input type="submit" value="회원 로그인" onclick="login('id_name')"> 
             </form>
-            <p>비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.</p>
+        </div>
+        <p>비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.</p>
+       
+            
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>
     <script src="script.js"></script>

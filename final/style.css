@@ -131,3 +131,12 @@ li{
     margin: 0;
     padding: 0;
 }
+
+.warning{
+    height: 50%;
+    width:100%;
+    color: rgb(156, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

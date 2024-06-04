@@ -50,7 +50,7 @@
             margin-top: 10px;
             font-size:large;
         }
-        section > ul > li div{
+        .help_content{
             display: none;
             border:1px solid black;
             width: 95%;
@@ -59,8 +59,14 @@
             justify-content: center;
             margin: 5%;
             margin-top: 1.5%;
+            padding: 1%;
             font-size:medium;
 
+        }
+        .help_title{
+            display: flex;
+            align-items: center;
+            text-align: center;
         }
         section > ul > div{
             display: flex;
@@ -78,12 +84,18 @@
         <div>클릭 시 펼쳐집니다.</div>
         <div id="hr"></div>
         <ul>
-            <li onclick="help_click(this)">프로필<div class="help_content">테스트</div></li>
-            <li onclick="help_click(this)">공부 장소<div class="help_content">테스트</div></li>
-            <li onclick="help_click(this)">계획서<div class="help_content">테스트</div></li>
-            <li onclick="help_click(this)">미루기<div class="help_content">테스트</div></li>
-            <li onclick="help_click(this)">타이머<div class="help_content">테스트</div></li>
-            <li onclick="help_click(this)">테마 변경<div class="help_content">테스트</div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>프로필</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>공부 장소</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>계획서</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>미루기</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>타이머</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
+            <li onclick="help_click(this)"><div class="help_title"><h1>테마 변경</h1></div>
+                <div class="help_content"><h3>프로필</h3></div></li>
         </ul>
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>

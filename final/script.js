@@ -20,9 +20,16 @@ function check_login(){
 }
 
 function help_click(li){
+    if(li.style.height=='1000px'){
+        for (var i = 0; i < document.querySelectorAll('.help_content').length; i++) {
+            document.querySelectorAll('.help_content')[i].style.display = 'none';
+        }
+        li.style.height='60px';
+        return;
+    }
     for (var i = 0; i < document.querySelectorAll('.help_content').length; i++) {
         document.querySelectorAll('.help_content')[i].style.display = 'none';
-        document.querySelectorAll('section > ul > li')[i].style.height='60px';
+        document.querySelectorAll('.help_content')[i].style.height = '60px';
     }
     li.querySelector('.help_content').style.display='flex';
     li.style.height='1000px';

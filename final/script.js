@@ -6,17 +6,26 @@ function open_help(url){
     if(help_win == null){ alert("팝업이 차단되어 있습니다!")}
 }
 
-function login(formname){
-    if(document.getElementById(formname).value != ""){
-        alert("로그인하기")
+function login(name){
+    value=document.getElementById(name).value;
+    if(value != ""){
+        let expire = new Date();
+        expire.setTime(expire.getTime()+(365*24*3600*1000));
+        set_cookie("user", value, expire);
+        alert("로그인 되었습니다.")
     }else {
-        alert("입력된 것이 없습니다")
+        alert("입력된 것이 없습니다.")
     }
     
 }
 
+function set_cookie(name, value, expireDate){
+    let cookieStr = name + "=" + escape(value)+"; path=/ ;" + ((expireDate == null)?"":("expires=" + expireDate.toUTCString()+";"));
+    document.cookie=cookieStr;
+}
+
 function check_login(){
-    alert("로그인 하셨나요?")
+    alert("asd");
 }
 
 function help_click(li){

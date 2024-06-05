@@ -14,9 +14,9 @@ function login(name){
         expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000));
         SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
-        location.replace("home_login.html")
+        location.replace("home_login.html");
     } else {
-        alert("");
+        alert("입력된 것이 없습니다");
         return;
     }
 }

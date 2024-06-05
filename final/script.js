@@ -7,21 +7,32 @@ function open_help(url){
 }
 
 function login(name){
-    value=document.getElementById(name).value;
-    if(value != ""){
+    let username = GetCookie("username");
+    let value = document.getElementById(name).value;
+    if(value != "" && username==null){
         let expire = new Date();
-        expire.setTime(expire.getTime()+(365*24*3600*1000));
-        set_cookie("user", value, expire);
-        alert("로그인 되었습니다.")
-    }else {
-        alert("입력된 것이 없습니다.")
+        expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000)); // 1년후 
+	    SetCookie("username",value,expire);
+        alert("로그인 되었습니다.");
+    } else {
+        alert("입력된 것이 없습니다.");
     }
-    
 }
 
-function set_cookie(name, value, expireDate){
-    let cookieStr = name + "=" + escape(value)+"; path=/ ;" + ((expireDate == null)?"":("expires=" + expireDate.toUTCString()+";"));
-    document.cookie=cookieStr;
+function GetCookie (name) {
+	let pairs = document.cookie.split(";"); // 쿠키문자열을 ;을 경계로 분할
+	for(let i=0; i<pairs.length; i++) {
+		let pair = pairs[i].trim(); // 쿠키 앞뒤의 빈칸 제거
+		let unit = pair.split("=");
+		if(unit[0] == name)
+			return unescape(unit[1]);
+	}
+	return null;
+}
+function SetCookie (name, value, expireDate) {
+	let cookieStr = name + "=" + escape(value) + 
+        ((expireDate == null)?"":("; expires=" + expireDate.toUTCString()));
+        document.cookie = cookieStr;
 }
 
 function check_login(){

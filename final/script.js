@@ -11,11 +11,13 @@ function login(name){
     let value = document.getElementById(name).value;
     if(value != "" && username==null){
         let expire = new Date();
-        expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000)); // 1년후 
-	    SetCookie("username",value,expire);
+        expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000));
+        SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
+        location.replace("home_login.html")
     } else {
-        alert("입력된 것이 없습니다.");
+        alert("");
+        return;
     }
 }
 
@@ -36,7 +38,13 @@ function SetCookie (name, value, expireDate) {
 }
 
 function check_login(){
-    alert("asd");
+    let username=GetCookie("username");
+    if(username==null){ return False; }
+    else{ return true; }
+}
+
+function check_main(){
+    if(check_login()){}
 }
 
 function help_click(li){

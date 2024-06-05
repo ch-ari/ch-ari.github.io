@@ -18,7 +18,16 @@ function login(name){
         SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
         location.replace("home_login.html");
+        document.getElementById('login_form').innerHTML='<div id="id_name">'+value+'</div><br><input type="submit" value="로그아웃">';
+        document.getElementById('login_form').onsubmit="logout('id_name'); event.preventDefault();";
     }
+}
+
+function logout(){
+    let username=GetCookie('username');
+    SetCookie('username', username, -1);
+    document.getElementById('login_form').innerHTML="<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='최애리'><br><input type='submit' value='회원 로그인'>";
+    document.getElementById('login_form').onsubmit="login('id_name'); event.preventDefault();";
 }
 
 function GetCookie (name) {

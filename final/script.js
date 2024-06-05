@@ -17,7 +17,6 @@ function login(name){
         expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000));
         SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
-        location.replace("home_login.html");
         document.getElementById('login_form').innerHTML='<div id="id_name">'+value+'</div><br><input type="submit" value="로그아웃">';
         document.getElementById('login_form').onsubmit="logout('id_name'); event.preventDefault();";
         document.getElementsByClassName('warning').innerHTML=''

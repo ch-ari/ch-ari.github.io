@@ -82,12 +82,8 @@ function logout(){
 function check_login(name){
     let username=GetCookie("username");
     if(name.href=="profile.html"){
-        if(username==null){ alert("프로필 기능은 로그인하지 않으면 사용할 수 없습니다! "); }
-        else{ location.replace("profile.html"); }
-    }
-    if(name.href="home.html"){
-        if(username==null){ location.replace('home.html'); }
-        else{ location.replace("home_login.html"); }
+        if(username!=null){ location.replace("profile.html"); }
+        else{ alert("프로필 기능은 로그인하지 않으면 사용할 수 없습니다! "); }
     }
 }
 

@@ -17,7 +17,11 @@ function login(name){
         expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000));
         SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
-        location.replace('home_login.html');
+        document.getElementById('login_form').innerHTML = '<div id="id_name">' + username + '</div><br><input type="submit" value="로그아웃">';
+        document.getElementById('login_form').onsubmit = function(event) {
+            event.preventDefault();
+            logout();
+        };
     }
 }
 
@@ -26,7 +30,12 @@ function logout(){
     let expire = new Date();
     SetCookie('username', username, expire.setTime(expire.getTime()-1));
     alert('로그아웃 되었습니다.');
-    location.replace('home.html');
+    document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='최애리'><br><input type='submit' value='회원 로그인'>";
+    document.getElementById('login_form').onsubmit = function(event) {
+        event.preventDefault();
+        login('id_name');
+    };
+    document.getElementsByClassName('warning')[0].innerHTML = '비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.';
     location.reload();
 }
 

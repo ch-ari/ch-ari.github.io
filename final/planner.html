@@ -5,13 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner</title>
     <link rel="stylesheet" href="style.css" type="text/css">
-    
+    <style>
+        #plan{
+            height:80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border:1px solid var(--sub-color);
+            background-color: var(--section-color);
+            margin-top: 1%;
+        }
+        #section_artc{
+            display: grid;
+            grid-template-rows: 25% 1% auto;
+            grid-template-columns: 80%;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #planner_insert{
+            grid-row: 1/2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--section-color);
+            width: 100%;
+            height: 100%;
+            margin-top: 2%;
+        }
+        
+        #section_artc > #hr{
+            display: flex;
+            grid-row: 2/3;
+            height:100%;
+            margin-top: 5%;
+        }
+        #planner_list{
+            display: flex;
+            grid-row: 3/4;
+            margin-top: 4%;
+            flex-direction: column;
+        }
+
+        #planner_cont{
+            width: 100%;
+            height: 97.8%;
+            font-size: 1.5em;
+            color: var(--sub-color);
+            background-color: var(--section-color);
+            border: 1px solid var(--sub-color);
+            text-align: center;
+        }
+        #planner_date{
+            width: 30%;
+            height: 99%;
+            font-size: 1.3em;
+            text-align: center;
+            color: var(--sub-color);
+            background-color: var(--section-color);
+            border: 1px solid var(--sub-color);
+        }
+        input[type=submit]{
+            width: 30%;
+            height:100%;
+            background-color: var(--section-color);
+            color: var(--sub-color);
+            border: 1px solid var(--sub-color);
+        }
+        input[type=submit]:hover{
+            filter: brightness(45%);
+        }
+        
+    </style>
 </head>
 <body>
+    <script>
+        window.onload = function(){
+            set_plannerdate();
+        }
+    </script>
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
-            <li><a href="profile.html">프로필</a></li>
+            <li><a href="profile.html" onclick="event.preventDefault(); check_login(this)">프로필</a></li>
             <li><a href="study_place.html">공부 장소</a></li>
             <li><a href="planner.html"><b>계획서</b></a></li>
             <li><a href="timer.html">타이머</a></li>
@@ -25,11 +106,12 @@
         <div id="section_title">플래너</div>
         <div id="hr"></div>
         <div id="section_artc">
-            <form id="planner_insert">
-                <input type="text">
-                <input type="date">
+            <form id="planner_insert" onsubmit="event.preventDefault(); append_plan(this);">
+                <input type="text" id="planner_cont" placeholder="소프트웨어 시험 보기">
+                <label></label><input type="date" id="planner_date">
+                <input type="submit" value="추가">
             </form>
-            <hr>
+            <div id="hr"></div>
             <div id="planner_list"></div>
         </div>
     </section>

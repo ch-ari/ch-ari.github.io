@@ -105,8 +105,8 @@ function logout(){
     if(document.getElementById('section_title')==username+"님, 환영합니다!"){
         document.getElementById('section_title').innerHTML='이름으로 로그인하기';
     }
-    let expire = new Date();
-    SetCookie('username', username, expire.setTime(expire.getTime()));
+    let expire = new Date(0);
+    SetCookie('username', username, expire);
     alert('로그아웃 되었습니다.');
     location.reload();
 }

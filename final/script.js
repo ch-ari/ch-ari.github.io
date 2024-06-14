@@ -101,7 +101,7 @@ function logout(){
         event.preventDefault();
         login('id_name');
     };
-    document.getElementsByClassName('warning')[0].innerHTML = '비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.';ㅕㅕ
+    document.getElementsByClassName('warning')[0].innerHTML = '비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.';
     if(document.getElementById('section_title')==username+"님, 환영합니다!"){
         document.getElementById('section_title').innerHTML='이름으로 로그인하기';
     }

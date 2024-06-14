@@ -56,6 +56,7 @@
             width: 60%;
             font-size: 2em;
             font-weight:900;
+            border: 1.5px solid var(--sub-color);
         }
         #pre_color{
             display: flex;
@@ -83,7 +84,7 @@
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
-            <li><a href="profile.html" onclick="event.preventDefault(); check_login(this)">프로필</a></li>
+            <li><a href="profile.html">프로필</a></li>
             <li><a href="study_place.html">공부 장소</a></li>
             <li><a href="planner.html">계획서</a></li>
             <li><a href="timer.html">타이머</a></li>
@@ -110,8 +111,8 @@
                 </div>
                 <input type="submit" value="변경하기" >
             </form>
-            <div id="pre_color"><button class="pre_c" id="light_color" value="light_color">밝은 테마</button>
-                <button class="pre_c" id="dark_color" value="dark_color">어두운 테마</button>
+            <div id="pre_color"><button class="pre_c" id="light_color" value="light_color" onclick="change_already(this)">밝은 테마</button>
+                <button class="pre_c" id="dark_color" value="dark_color" onclick="change_already(this)">어두운 테마</button>
             </div>
         </div>
     </section>

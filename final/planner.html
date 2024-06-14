@@ -14,7 +14,7 @@
             align-items: center;
             text-align: center;
             border:1px solid var(--sub-color);
-            background-color: var(--section-color);
+            background-color: var(--section-color-light);
             margin-top: 1%;
         }
         #section_artc{
@@ -57,7 +57,7 @@
             height: 97.7%;
             font-size: 1.5em;
             color: var(--sub-color);
-            background-color: var(--section-color);
+            background-color: var(--section-color-light);
             border: 1px solid var(--sub-color);
             text-align: center;
         }
@@ -67,7 +67,7 @@
             font-size: 1.3em;
             text-align: center;
             color: var(--sub-color);
-            background-color: var(--section-color);
+            background-color: var(--section-color-light);
             border: 1px solid var(--sub-color);
         }
         input[type=submit]{
@@ -81,16 +81,11 @@
         
     </style>
 </head>
-<body>
-    <script>
-        window.onload = function(){
-            set_plannerdate();
-        }
-    </script>
+<body onload="set_plannerdate(); loadPlans();">
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
-            <li><a href="profile.html" onclick="event.preventDefault(); check_login(this)">프로필</a></li>
+            <li><a href="profile.html">프로필</a></li>
             <li><a href="study_place.html">공부 장소</a></li>
             <li><a href="planner.html"><b>계획서</b></a></li>
             <li><a href="timer.html">타이머</a></li>

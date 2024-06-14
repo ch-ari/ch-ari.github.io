@@ -50,6 +50,7 @@ function retrieve(item){
 }
 
 
+
 function open_help(url){
     var left = (screen.availWidth-1200) / 2;
     var top = (screen.availHeight-800) / 2 - 50;
@@ -58,7 +59,7 @@ function open_help(url){
     if(help_win == null){ alert("팝업이 차단되어 있습니다!")}
 }
 function help_click(li){
-    if(li.style.height=='1000px'){
+    if(li.style.height=='300px'){
         for (var i = 0; i < document.querySelectorAll('.help_content').length; i++) {
             document.querySelectorAll('.help_content')[i].style.display = 'none';
         }
@@ -67,10 +68,10 @@ function help_click(li){
     }
     for (var i = 0; i < document.querySelectorAll('.help_content').length; i++) {
         document.querySelectorAll('.help_content')[i].style.display = 'none';
-        document.querySelectorAll('.help_content')[i].style.height = '60px';
+        document.querySelectorAll('.help_content')[i].parentNode.style.height = '60px';
     }
     li.querySelector('.help_content').style.display='flex';
-    li.style.height='1000px';
+    li.style.height='300px';
 }
 
 
@@ -112,12 +113,6 @@ function logout(){
     SetCookie('username', username, expire);
     alert('로그아웃 되었습니다.');
     location.reload();
-}
-
-function check_login(name){
-    let username=GetCookie("username");
-    if(username!=null){ location.replace("profile.html"); }
-    else{ alert("프로필 기능은 로그인하지 않으면 사용할 수 없습니다! "); }
 }
 
 function login_home(){
@@ -167,9 +162,12 @@ function append_plan(name){
 
     let plans=document.querySelectorAll("#plan");
     for(i=0;i<plans.length;i++){
-        plans[i].addEventListener("click", function(){ this.remove(); })
+        plans[i].addEventListener("click", function(){ 
+            this.remove();
+            savePlans(); })
     }
 
+    savePlans();
     set_plannerdate();
 }
 
@@ -185,9 +183,46 @@ function set_plannerdate(){
     d.value = defaultDate;
 }
 
+function savePlans(){
+    let plans = document.querySelectorAll("#plan");
+    let planArray = [];
+    plans.forEach(plan => {
+        planArray.push(plan.textContent);
+    });
+    localStorage.setItem("plans", JSON.stringify(planArray));
+}
+
+function loadPlans(){
+    let plans = localStorage.getItem("plans");
+    if(plans){
+        let planArray = JSON.parse(plans);
+        planArray.forEach(planText => {
+            let planDiv = document.createElement("div");
+            planDiv.setAttribute("id", "plan");
+            planDiv.appendChild(document.createTextNode(planText));
+            document.querySelector("#planner_list").appendChild(planDiv);
+        });
+        let plansElement = document.querySelectorAll("#plan");
+        for(let i = 0; i < plansElement.length; i++){
+            plansElement[i].addEventListener("click", function(){ 
+                this.remove(); 
+                savePlans(); // 계획이 삭제될 때 로컬스토리지에 저장
+            });
+        }
+    }
+}
+
 function start_lazy(){
+    let lazy_time=retrieve("lazy_time");
+    let lazy_able=retrieve("lazy_able");
+    if(lazy_able>0){
+        alert("연속으로 두번 이상 미룰 수 없습니다! 타이머 기능을 작동한 뒤 돌아오세요.");
+        return;
+    }
+    
     let button = document.getElementById('lazyButton');
     let timer = document.getElementById('timerContainer');
+    
     button.style.display = "none";
     timer.style.display = "flex";
 
@@ -209,25 +244,36 @@ function start_lazy(){
         timer.style.display = "none";
     }, randomMilliseconds);
 
-    let lazy_time=retrieve("lazy_time");
-    let lazy_able=retrieve("lazy_able");
     if(lazy_time!=-1 && lazy_able==0){ 
         store("lazy_time", parseInt(lazy_time)+parseInt(randomMinutes));
         lazy_able++;
-    }else if(lazy_able>0){
-        alert("2번 이상 연속으로 미룰 수 없습니다!");
-        return;
+        store("lazy_able", lazy_able);
     }
-    else{ return; }
     
 }
 
 function start_timer(){
-    let focus=document.getElementById("focus");
-    let rest=document.getElementById("rest");
-    let sections=document.getElementById("section_timer");
+    let focus=document.getElementById("focus").value;
+    let rest=document.getElementById("rest").value;
+    let sections=document.getElementById("section_timer").value;
+    if(rest == "" || focus=="" || sections==""){
+        alert("모든 값이 입력되어야 합니다!");
+        return;
+    }
+    if(parseInt(rest)>parseInt(focus)){
+        alert("휴식 시간은 집중 시간보다 짧아야 합니다!");
+        return;
+    }
+    store("lazy_able", 0);
+}
 
-
+function lightenColor(color, percent) {
+    var num = parseInt(color.slice(1), 16),
+        amt = Math.round(2.55 * percent),
+        R = (num >> 16) + amt,
+        G = (num >> 8 & 0x00FF) + amt,
+        B = (num & 0x0000FF) + amt;
+    return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
 }
 
 function profile_onload(){
@@ -261,23 +307,79 @@ function set_colorpicker(){
     sub.value=subColor;
 }
 
+function getBrightness(color) {
+    let r, g, b;
+    if (color.length === 7) { // #RRGGBB
+        r = parseInt(color.slice(1, 3), 16);
+        g = parseInt(color.slice(3, 5), 16);
+        b = parseInt(color.slice(5, 7), 16);
+    } else if (color.length === 4) { // #RGB
+        r = parseInt(color[1] + color[1], 16);
+        g = parseInt(color[2] + color[2], 16);
+        b = parseInt(color[3] + color[3], 16);
+    }
+    // Brightness calculation using the formula
+    return (r * 0.299 + g * 0.587 + b * 0.114);
+}
+
 function change_theme(){
     let sec=document.getElementById("section_color");
     let sub=document.getElementById("sub_color");
+    let light=sec.value;
     document.documentElement.style.setProperty('--section-color', sec.value);
     document.documentElement.style.setProperty('--sub-color', sub.value);
 
     store("sectionColor", sec.value);
     store("subColor", sub.value);
+
+    let brightness = getBrightness(sec.value);
+    if (brightness < 150) {
+        light=lightenColor(light, 5); 
+    }else{
+        light=lightenColor(light, -5);
+    }
+
+    document.documentElement.style.setProperty('--section-color-light', light);
+    store("sectionSub", light);
+
+    location.reload();
+}
+
+function change_already(theme){
+    let root = document.documentElement;
+    let sec="#ffffff";
+    let sub="#3e3e3e";
+    let lightSectionColor = "#ffffff";
+    if(theme.id=="light_color"){
+        sec="#ffffff";
+        sub="#3e3e3e";
+        lightSectionColor = lightenColor(sec, -5);
+    }else if(theme.id=="dark_color"){
+        sec="#1f1f1f";
+        sub="#efefef";
+        lightSectionColor = lightenColor(sec, 5);
+    }
+    store("sectionColor", sec);
+    store("subColor", sub);
+    store("sectionSub", lightSectionColor);
+    root.style.setProperty('--section-color-light', lightSectionColor);
+    root.style.setProperty('--section-color', sec);
+    root.style.setProperty('--sub-color', sub);
+    location.reload();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     let savedSectionColor = localStorage.getItem('sectionColor');
     let savedSubColor = localStorage.getItem('subColor');
+    let savedSectionSub = localStorage.getItem('sectionSub');
     if (savedSectionColor) {
         document.documentElement.style.setProperty('--section-color', savedSectionColor);
     }
     if (savedSubColor) {
         document.documentElement.style.setProperty('--sub-color', savedSubColor);
     }
+    if (savedSectionSub){
+        document.documentElement.style.setProperty('--section-color-light', savedSectionSub);
+    }
 });
+

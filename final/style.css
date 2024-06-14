@@ -1,6 +1,7 @@
 :root{
     --section-color:#ffffff;
     --sub-color:#3e3e3e;
+    --section-color-light:#ffffff;
 }
 
 html, body {
@@ -37,6 +38,7 @@ nav {
     padding: 0;
     border: 1px solid var(--sub-color);
     border-radius: 0px 5px 5px 0px;
+    overflow-y: auto;
 }
 nav ul{
     margin: 0;

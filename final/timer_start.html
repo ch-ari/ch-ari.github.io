@@ -5,8 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timer</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <style>
+        body{
+            display: grid;
+            grid-template-rows: 20% 50% 30%;
+            grid-template-columns: 100%;
+            align-items: center;
+            text-align: center;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        h1{
+            background-color: var(--sub-color);
+            color: var(--section-color);
+            width: 100%;
+            height: 100%;
+            grid-row: 1/2;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+        #timer{
+            background-color: var(--section-color);
+            grid-row: 2/3;
+            display: grid;
+            width: 60%;
+            height: 80%;
+            grid-template-columns: 50% 50%;
+            text-align: center;
+            place-items: center;
+        }
+        #timer > div{
+            display: flex;
+            font-size: 2em;
+            border: 1px solid var(--sub-color);
+            width: 100%;
+            height: 80%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+        #timer_time{
+            grid-column: 2/3;
+            width: 100%;
+            height: 80%;
+            font-size: 2em;
+            border: 1px solid var(--sub-color);
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+        #sect_t{
+            grid-row: 3/4;
+            border: 1px solid var(--sub-color);
+            height: 60%;
+            width: 60%;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1>현재 : <p id="sect_type"></p></h1>
+    <div id="timer"><div>남은 시간</div><div id="timer_time"></div></div>
+    <div id="sect_t">남은 세션 : <p id="sect_time"></p></div>
 </body>
 </html>

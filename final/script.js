@@ -10,6 +10,9 @@ function GetCookie (name) {
 	return null;
 }
 function SetCookie (name, value, expireDate) {
+    if (!(expireDate instanceof Date)) {
+        expireDate = new Date(expireDate);
+    }
 	let cookieStr = name + "=" + escape(value) + 
         ((expireDate == null)?"":("; expires=" + expireDate.toUTCString()));
         document.cookie = cookieStr;

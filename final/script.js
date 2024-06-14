@@ -1,3 +1,4 @@
+
 function GetCookie (name) {
 	let pairs = document.cookie.split(";"); // 쿠키문자열을 ;을 경계로 분할
 	for(let i=0; i<pairs.length; i++) {
@@ -12,6 +13,37 @@ function SetCookie (name, value, expireDate) {
 	let cookieStr = name + "=" + escape(value) + 
         ((expireDate == null)?"":("; expires=" + expireDate.toUTCString()));
         document.cookie = cookieStr;
+}
+function support_Sstorage(){
+    if(!window.sessionStorage){ 
+        alert("세션 스토리지를 지원하지 않습니다!");
+        return false;
+    }
+    return true;
+}
+function support_Lstorage(){
+    if(!window.localStorage){ 
+        alert("로컬 스토리지를 지원하지 않습니다!");
+        return false;
+    }
+    return true;    
+}
+
+function store(key, count){
+    if(support_Lstorage()){
+        localStorage.setItem(key, count);
+    }else {
+        return -1;
+    }
+}
+function retrieve(item){
+    if(support_Lstorage){
+        let val=localStorage.getItem(item);
+        if(val==null){ val=0; }
+        return val
+    }else {
+        return -1;
+    }
 }
 
 
@@ -85,6 +117,25 @@ function check_login(name){
     else{ alert("프로필 기능은 로그인하지 않으면 사용할 수 없습니다! "); }
 }
 
+function login_home(){
+    let username = GetCookie("username");
+    if (username !== null) {
+        document.getElementById('login_form').innerHTML = '<div id="id_name">' + username + '</div><br><input type="submit" value="로그아웃">';
+        document.getElementById('login_form').onsubmit = function(event) {
+            event.preventDefault();
+            logout();
+        };
+        document.getElementsByClassName('warning')[0].innerHTML = '';
+    } else {
+        document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='최애리'><br><input type='submit' value='회원 로그인'>";
+        document.getElementById('login_form').onsubmit = function(event) {
+            event.preventDefault();
+            login('id_name');
+        };
+        document.getElementsByClassName('warning')[0].innerHTML = '비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.';
+    }
+}
+
 
 
 function append_plan(name){
@@ -116,16 +167,7 @@ function append_plan(name){
         plans[i].addEventListener("click", function(){ this.remove(); })
     }
 
-
-    let d=document.getElementById("planner_date");
-    let currentDate=new Date();
-    currentDate.setDate(currentDate.getDate() + 7); // 현재 날짜로부터 7일 뒤를 계산
-    let year = currentDate.getFullYear();
-    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1
-    let day = currentDate.getDate().toString().padStart(2, '0');
-
-    let defaultDate = year+'-'+month+'-'+day;
-    d.value = defaultDate;
+    set_plannerdate();
 }
 
 function set_plannerdate(){
@@ -146,25 +188,93 @@ function start_lazy(){
     button.style.display = "none";
     timer.style.display = "flex";
 
-    let randomMinutes = Math.floor(Math.random() * 6) + 15;
+    let randomMinutes = Math.floor(Math.random() * 11) + 10;
     let randomMilliseconds = randomMinutes * 60 * 1000;
 
-    // 타이머 바 초기화
     let timerBar = document.getElementById('timerBar');
     timerBar.style.transition = 'none';
     timerBar.style.height = '0%';
 
-    // reflow를 강제하여 transition이 적용되도록 함
     void timerBar.offsetHeight;
 
-    // 타이머 바 줄어들기 시작
     timerBar.style.transition = `height ${randomMilliseconds}ms ease-out`;
     timerBar.style.height = '100%';
 
-    // 타이머 끝났을 때의 동작 정의 (선택 사항)
     setTimeout(() => {
         alert('타이머 종료!');
         button.style.display = "flex";
         timer.style.display = "none";
     }, randomMilliseconds);
+
+    let lazy_time=retrieve("lazy_time");
+    let lazy_able=retrieve("lazy_able");
+    if(lazy_time!=-1 && lazy_able==0){ 
+        store("lazy_time", parseInt(lazy_time)+parseInt(randomMinutes));
+        lazy_able++;
+    }else if(lazy_able>0){
+        alert("2번 이상 연속으로 미룰 수 없습니다!");
+        return;
+    }
+    else{ return; }
+    
 }
+
+function start_timer(){
+    let focus=document.getElementById("focus");
+    let rest=document.getElementById("rest");
+    let sections=document.getElementById("section_timer");
+
+
+}
+
+function profile_onload(){
+    let total_study_time=document.getElementById("total_study_time");
+    let total_set=document.getElementById("total_set");
+    let total_lazy_time=document.getElementById("total_lazy_time");
+    let total_out=document.getElementById("total_out");
+    let name=document.getElementById("profile_title");
+
+    total_study_time.innerHTML=retrieve("study_time");
+    total_set.innerHTML=retrieve("total_set");
+    total_lazy_time.innerHTML=retrieve("lazy_time");
+    total_out.innerHTML=retrieve("out_time");
+
+    cookie_name=GetCookie("username");
+    if(cookie_name==null){ cookie_name="익명"; }
+    cookie_name+="님의 기록";
+    name.innerHTML=cookie_name;
+}
+
+function set_colorpicker(){
+    let sec=document.getElementById("section_color");
+    let sub=document.getElementById("sub_color");
+
+    let rootStyles = getComputedStyle(document.documentElement);
+
+    let sectionColor = rootStyles.getPropertyValue('--section-color').trim();
+    let subColor = rootStyles.getPropertyValue('--sub-color').trim();
+
+    sec.value=sectionColor;
+    sub.value=subColor;
+}
+
+function change_theme(){
+    let sec=document.getElementById("section_color");
+    let sub=document.getElementById("sub_color");
+    document.documentElement.style.setProperty('--section-color', sec.value);
+    document.documentElement.style.setProperty('--sub-color', sub.value);
+
+    store("sectionColor", sec.value);
+    store("subColor", sub.value);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    let savedSectionColor = localStorage.getItem('sectionColor');
+    let savedSubColor = localStorage.getItem('subColor');
+    if (savedSectionColor) {
+        document.documentElement.style.setProperty('--section-color', savedSectionColor);
+    }
+    if (savedSubColor) {
+        document.documentElement.style.setProperty('--sub-color', savedSubColor);
+    }
+});

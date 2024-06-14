@@ -5,8 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theme change</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <style>
+        #section_artc {
+            display: grid;
+            grid-template-rows: 70% 30%;
+            grid-template-columns: 80%;
+            text-align: center;
+            align-self: center;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            grid-row: 1/2;
+        }
+        #picker{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 80%;
+            justify-content: center;
+            align-items: center;
+        }
+        #section_picker, #sub_picker{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        #section_color, #sub_color{
+            display: flex;
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            height: 60%;
+        }
+        #lab_sec, #lab_sub{
+            display: flex;
+            font-size: 1.3em;
+            margin: 1%;
+        }
+        input[type=submit]{
+            height: 20%;
+            width: 60%;
+            font-size: 2em;
+            font-weight:900;
+        }
+        #pre_color{
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            height: 50%;
+            grid-row: 2/3;
+            gap: 20%;
+        }
+        .pre_c{
+            display: flex;
+            width: 50%;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: 500;
+            border: 2px solid var(--sub-color);
+            background-color: var(--section-color);
+        }
+    </style>
 </head>
-<body>
+<body onload="set_colorpicker()">
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
@@ -23,7 +95,24 @@
     <section>
         <div id="section_title">테마 변경하기</div>
         <div id="hr"></div>
-        <div id="section_artc"></div>
+        <div id="section_artc">
+            <form onsubmit="change_theme()">
+                <div id="picker">
+                <div class="color-picker" id="section_picker">
+                    <input type="color" id="section_color">
+                    <label for="section_color" id="lab_sec">배경 색</label>
+                </div>
+                <div class="color-picker" id="sub_picker">
+                    <input type="color" id="sub_color">
+                    <label for="sub_color" id="lab_sub">보조 색</label>
+                </div>
+                </div>
+                <input type="submit" value="변경하기" >
+            </form>
+            <div id="pre_color"><button class="pre_c" id="light_color" value="light_color">밝은 테마</button>
+                <button class="pre_c" id="dark_color" value="dark_color">어두운 테마</button>
+            </div>
+        </div>
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>
     <script src="script.js"></script>

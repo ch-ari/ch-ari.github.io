@@ -1,11 +1,12 @@
 :root{
-    --section-color:white;
-    --sub-color:rgb(62, 62, 62);
+    --section-color:#ffffff;
+    --sub-color:#3e3e3e;
 }
 
 html, body {
     height: 100%;
     margin: 0;
+    color: var(--sub-color);
 }
 
 body {
@@ -139,4 +140,19 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+input[type=submit]{
+    background-color: var(--sub-color);
+    color:var(--section-color);
+}
+input[type=submit]:hover{
+    filter: brightness(45%);
+}
+button:hover{
+    filter: brightness(45%);
+}
+button{
+    background-color: var(--sub-color);
+    color:var(--section-color);
 }

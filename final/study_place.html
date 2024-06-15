@@ -6,43 +6,44 @@
     <title>Study place</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <style>
-        #plan{
-            height:80px;
-            width: 100%;
+        #rates {
+            height: 80px;
+            width: 1110px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            border:1px solid var(--sub-color);
+            border: 1px solid var(--sub-color);
             background-color: var(--section-color);
+            margin:0;
             margin-top: 1%;
         }
-        #section_artc{
+        #section_artc {
             display: grid;
-            grid-template-rows: 25% 1% auto;
+            grid-template-rows: auto 1% auto auto;
             grid-template-columns: 80%;
             width: 100%;
-            justify-content: center;
+            place-items: center;
             align-items: center;
             text-align: center;
+            gap: 2%;
         }
-
-        #planner_insert{
+        #rate_insert {
             grid-row: 1/2;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            flex-direction: column;
             background-color: var(--section-color);
             width: 100%;
-            height: 100%;
+            height: 98%;
             margin-top: 2%;
         }
-        
-        #section_artc > #hr{
+        #section_artc > #hr {
             display: flex;
             grid-row: 2/3;
-            height:100%;
+            height: 100%;
             margin-top: 5%;
         }
         #planner_list{
@@ -50,37 +51,84 @@
             grid-row: 3/4;
             margin-top: 4%;
             flex-direction: column;
+            width: 100%;
         }
 
-        #planner_cont{
+        #place {
             width: 100%;
-            height: 97.7%;
-            font-size: 1.5em;
+            height: 16%;
+            font-size: 1.2em;
+            padding: 0.2em;
+            padding-left: 0;
+            padding-right: 0;
             color: var(--sub-color);
             background-color: var(--section-color);
             border: 1px solid var(--sub-color);
             text-align: center;
         }
-        #planner_date{
-            width: 30%;
-            height: 99%;
-            font-size: 1.3em;
+        #placeName {
+            width: 100%;
+            height: 16%;
+            font-size: 1.2em;
+            padding: 0.2em;
+            padding-left: 0;
+            padding-right: 0;
+            color: var(--sub-color);
+            background-color: var(--section-color);
+            border: 1px solid var(--sub-color);
+            text-align: center;
+        }
+        #rate {
+            width: 100%;
+            height: 16%;
+            font-size: 1.2em;
+            padding: 0.2em;
+            padding-left: 0;
+            padding-right: 0;
+            color: var(--sub-color);
+            background-color: var(--section-color);
+            border: 1px solid var(--sub-color);
+            text-align: center;
+        }
+        #star_rate {
+            width: 100%;
+            height: 15%;
+            font-size: 1.4em;
+            padding: 0.2em;
+            padding-left: 0;
+            padding-right: 0;
             text-align: center;
             color: var(--sub-color);
             background-color: var(--section-color);
             border: 1px solid var(--sub-color);
         }
-        input[type=submit]{
-            width: 30%;
-            height:99.8%;
+        input[type=submit] {
+            width: 100%;
+            height: 25%;
+            font-size: 1.1em;
             border: 1px solid var(--sub-color);
         }
-        input[type=submit]:hover{
+        input[type=submit]:hover {
             filter: brightness(45%);
         }
-    </style>
+        #map {
+            grid-row: 3/4;
+            width: 100%;
+            height: 300px;
+            margin-top: 2%;
+            background-color: green;
+        }
+        #hr {
+            margin: 0;
+        }
+        #deleteButton{
+            width: 5%;
+            margin-left: 2%;
+            height: 50%;
+        }
+        </style>
 </head>
-<body>
+<body onload="loadRates()">
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
@@ -98,16 +146,26 @@
         <div id="section_title">공부 장소 비교 및 확인</div>
         <div id="hr"></div>
         <div id="section_artc">
-            <form id="planner_insert" onsubmit="">
-                <input type="text" id="planner_cont" placeholder="">
-                <label></label><input type="text" id="planner_date">
+            <form id="rate_insert" onsubmit="append_rate(this)">
+                <label for="placeName">주소</label><input type="text" id="placeName" placeholder="○○스터디카페">
+                <label for="place">주소</label><input type="text" id="place" placeholder="○○시 ○○로 ○길 ○">
+                <label for="star_rate">별점</label><select id="star_rate">
+                    <option value="0">☆☆☆☆☆</option>
+                    <option value="1">★☆☆☆☆</option>
+                    <option value="2">★★☆☆☆</option>
+                    <option value="3">★★★☆☆</option>
+                    <option value="4">★★★★☆</option>
+                    <option value="5" selected>★★★★★</option>
+                </select>
+                <label for="rate">한줄평</label><input type="text" id="rate" placeholder="시설이 깨끗하지만 소음이 있다.">
                 <input type="submit" value="추가">
             </form>
             <div id="hr"></div>
-            <div id="planner_list"></div>
+            <div id="map"></div>
+            <div id="rate_list"></div>
         </div>
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>
-    <script src="script.js"></script>
+    <script src="place_script.js"></script>
 </body>
 </html>

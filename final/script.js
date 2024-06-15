@@ -189,7 +189,7 @@ function savePlans(){
     plans.forEach(plan => {
         planArray.push(plan.textContent);
     });
-    localStorage.setItem("plans", JSON.stringify(planArray));
+    store("plans", JSON.stringify(planArray));
 }
 
 function loadPlans(){
@@ -250,21 +250,6 @@ function start_lazy(){
         store("lazy_able", lazy_able);
     }
     
-}
-
-function start_timer(){
-    let focus=document.getElementById("focus").value;
-    let rest=document.getElementById("rest").value;
-    let sections=document.getElementById("section_timer").value;
-    if(rest == "" || focus=="" || sections==""){
-        alert("모든 값이 입력되어야 합니다!");
-        return;
-    }
-    if(parseInt(rest)>parseInt(focus)){
-        alert("휴식 시간은 집중 시간보다 짧아야 합니다!");
-        return;
-    }
-    store("lazy_able", 0);
 }
 
 function lightenColor(color, percent) {

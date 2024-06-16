@@ -154,18 +154,21 @@ function append_plan(name){
 
     newdiv.appendChild(document.createTextNode(new_text));
     
+    let newbutton = document.createElement("input");
+    newbutton.setAttribute("type", "submit");
+    newbutton.setAttribute("id", "deleteButton");
+    newbutton.setAttribute("value", "삭제");
+
+    newbutton.addEventListener("click", function(){
+        newdiv.remove();
+        savePlans();
+    });
+
+    newdiv.appendChild(newbutton);
     plan.insertBefore(newdiv, plan.childNodes[0]);
 
     document.getElementById("planner_cont").value = "";
     document.getElementById("planner_date").value = "";
-
-
-    let plans=document.querySelectorAll("#plan");
-    for(i=0;i<plans.length;i++){
-        plans[i].addEventListener("click", function(){ 
-            this.remove();
-            savePlans(); })
-    }
 
     savePlans();
     set_plannerdate();
@@ -194,21 +197,24 @@ function savePlans(){
 
 function loadPlans(){
     let plans = localStorage.getItem("plans");
+    let newbutton;
     if(plans){
         let planArray = JSON.parse(plans);
         planArray.forEach(planText => {
             let planDiv = document.createElement("div");
             planDiv.setAttribute("id", "plan");
             planDiv.appendChild(document.createTextNode(planText));
+            newbutton = document.createElement("input");
+            newbutton.setAttribute("type", "submit");
+            newbutton.setAttribute("id", "deleteButton");
+            newbutton.setAttribute("value", "삭제");
+            newbutton.addEventListener("click", function(){
+                planDiv.remove();
+                savePlans();
+            });
+            planDiv.appendChild(newbutton);
             document.querySelector("#planner_list").appendChild(planDiv);
         });
-        let plansElement = document.querySelectorAll("#plan");
-        for(let i = 0; i < plansElement.length; i++){
-            plansElement[i].addEventListener("click", function(){ 
-                this.remove(); 
-                savePlans(); // 계획이 삭제될 때 로컬스토리지에 저장
-            });
-        }
     }
 }
 
@@ -340,8 +346,8 @@ function change_already(theme){
         sub="#3e3e3e";
         lightSectionColor = lightenColor(sec, -5);
     }else if(theme.id=="dark_color"){
-        sec="#1f1f1f";
-        sub="#efefef";
+        sec="#312e2b";
+        sub="#c0b8aa";
         lightSectionColor = lightenColor(sec, 5);
     }
     store("sectionColor", sec);

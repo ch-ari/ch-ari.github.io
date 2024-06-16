@@ -128,7 +128,19 @@
         }
         </style>
 </head>
-<body onload="loadRates()">
+<body onload="loadRates(); initMap()">
+    <script type="text/javascript" src="place_script.js"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=228k9opzx2&callback=CALLBACK_FUNCTION"></script>
+    <script type="text/javascript">
+        var map = null;
+
+        function initMap() {
+            map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(37.3595704, 127.105399),
+                zoom: 10
+            });
+        }
+    </script>
     <header><h1>공부 웹</h1></header>
     <nav>
         <ul>
@@ -166,6 +178,6 @@
         </div>
     </section>
     <footer>Made by. 최애리 ( 010-3312-3416 )</footer>
-    <script src="place_script.js"></script>
+    
 </body>
 </html>

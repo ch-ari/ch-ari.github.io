@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     let savedSectionColor = localStorage.getItem('sectionColor');
     let savedSubColor = localStorage.getItem('subColor');

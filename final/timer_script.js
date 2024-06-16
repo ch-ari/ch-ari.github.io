@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // 로컬 스토리지 out_time 증가
             let outTime = parseInt(retrieve('out_time'));
             store('out_time', outTime + 1);
-
             alert("타이머가 중지되었습니다. 확인을 누르면 재개합니다.");
         });
 
@@ -123,7 +122,6 @@ function startSection() {
     if (currentSection <= 0) {
         clearInterval(timerInterval);
         document.getElementById("sect_type").innerHTML = "완료!";
-        alert("타이머 종료!");
         setTimeout(() => {
             window.location.href = 'timer.html';
         }, 2000);

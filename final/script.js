@@ -130,7 +130,7 @@ function login_home(){
             event.preventDefault();
             login('id_name');
         };
-        document.getElementsByClassName('warning')[0].innerHTML = '비회원 이용 시 프로필을 포함한 일부 기능 사용이 불가능할 수 있습니다.';
+        document.getElementsByClassName('warning')[0].innerHTML = '';
     }
 }
 

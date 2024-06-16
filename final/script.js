@@ -86,7 +86,7 @@ function login(name){
         expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000));
         SetCookie("username",value,expire);
         alert("로그인 되었습니다.");
-        document.getElementById('login_form').innerHTML = '<div id="id_name">' + username + '</div><br><input type="submit" value="로그아웃">';
+        document.getElementById('login_form').innerHTML = '<div id="id_name">어서 오세요, ' + username + '님!</div><br><input type="submit" value="로그아웃">';
         document.getElementById('login_form').onsubmit = function(event) {
             event.preventDefault();
             logout();
@@ -100,7 +100,7 @@ function login(name){
 
 function logout(){
     let username=GetCookie('username');
-    document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='최애리'><br><input type='submit' value='회원 로그인'>";
+    document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='○○○'><br><input type='submit' value='회원 로그인'>";
     document.getElementById('login_form').onsubmit = function(event) {
         event.preventDefault();
         login('id_name');
@@ -118,14 +118,14 @@ function logout(){
 function login_home(){
     let username = GetCookie("username");
     if (username !== null) {
-        document.getElementById('login_form').innerHTML = '<div id="id_name">' + username + '</div><br><input type="submit" value="로그아웃">';
+        document.getElementById('login_form').innerHTML = '<div id="id_name">어서 오세요, ' + username + '님!</div><br><input type="submit" value="로그아웃">';
         document.getElementById('login_form').onsubmit = function(event) {
             event.preventDefault();
             logout();
         };
         document.getElementsByClassName('warning')[0].innerHTML = '';
     } else {
-        document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='최애리'><br><input type='submit' value='회원 로그인'>";
+        document.getElementById('login_form').innerHTML = "<div><label for='id_name'>이름</label></div><input type='text' id='id_name' placeholder='○○○'><br><input type='submit' value='회원 로그인'>";
         document.getElementById('login_form').onsubmit = function(event) {
             event.preventDefault();
             login('id_name');

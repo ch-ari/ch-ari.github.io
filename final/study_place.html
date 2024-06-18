@@ -46,9 +46,9 @@
             height: 100%;
             margin-top: 5%;
         }
-        #planner_list{
+        #rate_list{
             display: flex;
-            grid-row: 3/4;
+            grid-row: 4/5;
             margin-top: 4%;
             flex-direction: column;
             width: 100%;
@@ -127,11 +127,22 @@
             margin-left: 2%;
             height: 50%;
         }
+        .places_top{
+            width: 5%;
+            margin-left: 2%;
+            height: 50%;
+        }
+        #mapbutton{
+            width: 5%;
+            margin-left: 2%;
+            height: 50%;
+        }
         </style>
 </head>
-<body onload="loadRates(); initMap()">
-    <script type="text/javascript" src="place_script.js"></script>
+<body onload="loadRates(); initMap();">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=228k9opzx2&submodules=geocoder"></script>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=228k9opzx2&callback=CALLBACK_FUNCTION"></script>
+    <script type="text/javascript" src="place_script.js"></script>
     <script type="text/javascript">
         var map = null;
 
@@ -161,7 +172,7 @@
         <div id="section_artc">
             <form id="rate_insert" onsubmit="append_rate(this)">
                 <label for="placeName">주소</label><input type="text" id="placeName" placeholder="○○스터디카페">
-                <label for="place">주소</label><input type="text" id="place" placeholder="○○시 ○○로 ○길 ○">
+                <label for="place">주소</label><input type="text" id="place" placeholder="○○도 ○○시 ○○구 ○○로 ○○○○○">
                 <label for="star_rate">별점</label><select id="star_rate">
                     <option value="0">☆☆☆☆☆</option>
                     <option value="1">★☆☆☆☆</option>

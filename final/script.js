@@ -272,12 +272,20 @@ function profile_onload(){
     let total_set=document.getElementById("total_set");
     let total_lazy_time=document.getElementById("total_lazy_time");
     let total_out=document.getElementById("total_out");
+    let place_top=document.getElementById("place_rate_top");
     let name=document.getElementById("profile_title");
 
     total_study_time.innerHTML=retrieve("study_time");
     total_set.innerHTML=retrieve("total_set");
     total_lazy_time.innerHTML=retrieve("lazy_time");
     total_out.innerHTML=retrieve("out_time");
+    let top=retrieve("place_rate_top");
+    if(top==0){
+        place_top.innerHTML="아직 설정되지 않았습니다.";
+    }
+    else{
+        place_top.innerHTML=top;
+    }
 
     cookie_name=GetCookie("username");
     if(cookie_name==null){ cookie_name="익명"; }

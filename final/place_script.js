@@ -157,6 +157,7 @@ function loadRates(){
             topButton.setAttribute("class", "places_top");
             topButton.addEventListener("click", function () {
                 store("place_rate_top", place_name[i]);
+                alert("주 공부 장소가 "+ place_name[i] + "(으)로 설정되었습니다!");
             });
             newdiv.appendChild(topButton);
 
